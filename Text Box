@@ -1,0 +1,54 @@
+package AICodeSelenium;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.*;
+public class AITextBox {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		 // Set up WebDriver
+		System.setProperty("webdriver.chrome.driver", "Driver/chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+        WebDriverWait wait = new WebDriverWait(driver, 10); // 10 seconds of wait time
+
+        // Navigate to the URL
+        driver.get("https://demoqa.com/");
+        driver.manage().window().maximize();
+        // Click on the specified element using XPath
+        WebElement element1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/div/div/div[2]/div/div[1]")));
+      //  element1.click();
+
+        Actions action =new Actions(driver);
+        action.moveToElement(element1).click().build().perform();
+        
+        
+        // Click on the specified element using ID
+        WebElement element2 = driver.findElement(By.id("item-0"));
+        element2.click();
+
+        // Enter text in the specified text fields
+        driver.findElement(By.id("userName")).sendKeys("selenium");
+        driver.findElement(By.id("userEmail")).sendKeys("selenium@automation.com");
+        driver.findElement(By.id("currentAddress")).sendKeys("Any Address");
+        driver.findElement(By.id("permanentAddress")).sendKeys("Any Address");
+        
+        // Click on the submit button
+        WebElement element3 = driver.findElement(By.xpath("/html/body/div[2]/div/div/div/div[2]/div[2]/form/div[5]/div/button"));
+       // element3.click();
+        action.moveToElement(element3).click().build().perform();
+        // Get text from the specified XPath
+        WebElement messageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[2]/div/div/div/div[2]/div[2]/form/div[6]/div")));
+        String message = messageElement.getText();
+        System.out.println("Message: " + message);
+
+        // Close the browser
+        driver.quit();
+
+	}
+
+}
